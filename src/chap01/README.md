@@ -1,4 +1,4 @@
-
+書き捨てできるように`cargo-script`を利用。
 
 ```bash
 cargo install rust-script
