@@ -9,6 +9,7 @@ fn main() {
         Ok(ForkResult::Parent { child, .. }) => {
             println!("Main pid={}, forked a child pid={}", getpid(), child);
             waitpid(child,None).unwrap();
+            exit(0)
         }
         Ok(ForkResult::Child) => {
             println!("Child pid={}, PPID is {}", getpid(), getppid());
