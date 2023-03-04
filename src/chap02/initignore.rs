@@ -7,6 +7,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 
 use signal_hook::consts::*;
 
+// https://pola-rs.github.io/polars/signal_hook/flag/index.html#functions
 fn main() -> Result<(), Error> {
     const SIGINT_U: usize = SIGINT as usize;
     let term = Arc::new(AtomicUsize::new(0));
