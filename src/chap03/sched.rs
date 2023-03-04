@@ -14,7 +14,10 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() < 2 {
-        eprintln!("usage: {} <nproc> <total[ms]> <resolution[ms]>", args[0]);
+        eprintln!("使い方: {} <プロセス数>
+                   * 論理CPU0上で<プロセス数>の数だけ同時に100ミリ秒程度CPUリソースを消費する負荷処理プロセスを起動した後に、すべてのプロセスの終了を待つ。
+                   * \"sched-<プロセス数>.jpg\"というファイルに実行結果を示したグラフを書き出す。
+                   * グラフのx軸は負荷処理プロセス開始からの経過時間[ミリ秒]、y軸は進捗[%]", args[0]);
         exit(1);
     }
 
@@ -65,7 +68,7 @@ fn estimate_loops_per_msec() -> i64 {
     NLOOP_FOR_ESTIMATION / diff_msec
 }
 
-fn child_fn(stdout: &mut dyn Write, id: i8, nloops_per_msec:i64, start: DateTime<Local>) {
+fn child_fn(stdout: &mut dyn Write, id: i8, nloops_per_msec: i64, start: DateTime<Local>) {
     let mut progress = Vec::with_capacity(100);
     let mut now: DateTime<Local>;
     for _ in 0..100 {
@@ -75,7 +78,7 @@ fn child_fn(stdout: &mut dyn Write, id: i8, nloops_per_msec:i64, start: DateTime
     }
     for (i, now) in progress.iter().enumerate() {
         let diff_msec: i64 = now.timestamp_millis() - start.timestamp_millis();
-        writeln!(stdout, "{}\t{}\t{}", id, diff_msec, (i + 1) * 100 ).expect("err");
+        writeln!(stdout, "{}\t{}\t{}", id, diff_msec, (i + 1) * 100).expect("err");
     }
     stdout.flush().expect("flush err (92)");
     exit(1);
