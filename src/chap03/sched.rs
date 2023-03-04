@@ -8,7 +8,7 @@ use std::process::exit;
 use chrono::{DateTime, Local};
 use nix::unistd::{fork, ForkResult};
 
-static NLOOP_FOR_ESTIMATION: i64 = 1_000_000;
+static NLOOP_FOR_ESTIMATION: i64 = 100_000_000;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
