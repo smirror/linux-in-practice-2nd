@@ -48,7 +48,7 @@ fn unwrap_and_validate_arg(arg_name: &str, arg: &str) -> i8 {
     match arg.parse::<i8>() {
         Ok(value) => {
             if value < 1 {
-                eprintln!("<{}>({}) should be >= 1", arg_name, value);
+                eprintln!("<{}>({}) should be => 1", arg_name, value);
                 exit(1);
             }
             value
