@@ -30,19 +30,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - run: rustup component add clippy
-
-      - name: Annotate commit with clippy warnings
-        uses: actions-rs/clippy-check@v1
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features
-        continue-on-error: true
+          profile: minimal
+          toolchain: stable
+          components: clippy
+          override: true
 
-#      - name: Security audit
-#        uses: actions-rs/audit-check@v1
-#        with:
-#          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install required cargo
+        run: cargo install clippy-sarif sarif-fmt
+
+      - name: Run rust-clippy
+        run:
+          cargo clippy
+          --all-features
+          --message-format=json | clippy-sarif | tee rust-clippy-results.sarif | sarif-fmt
+        continue-on-error: true
 
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v2
