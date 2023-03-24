@@ -14,7 +14,7 @@ use nix::{
 };
 
 const ALLOC_SIZE: NonZeroUsize = unsafe { NonZeroUsize::new_unchecked(1024_usize.pow(3) ) };
-const ACCESS_UNIT: size_t = 10 * 1024 ^ 2;
+const ACCESS_UNIT: size_t = 10 * 1024_usize.pow(2) ;
 const PAGE_SIZE: size_t = 4096;
 
 fn main() {
