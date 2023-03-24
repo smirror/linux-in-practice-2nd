@@ -59,7 +59,7 @@ fn main() {
     println!(
         "{}: Access to all getting new memory fields.\
         finish to push Enter：",
-        chrono::Utc::now().format("%H:%M:%S").to_string()
+        chrono::Utc::now().format("%H:%M:%S")
     );
     let _ = io::stdin().read(&mut [0u8]).expect("waiting enter failed");
 }
