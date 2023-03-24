@@ -13,7 +13,7 @@ use nix::{
     unistd::getpid,
 };
 
-const ALLOC_SIZE: NonZeroUsize = unsafe { NonZeroUsize::new_unchecked(1024 ^ 3) };
+const ALLOC_SIZE: NonZeroUsize = unsafe { NonZeroUsize::new_unchecked(1024_usize.pow(3) ) };
 
 fn main() {
     let pid = getpid();
