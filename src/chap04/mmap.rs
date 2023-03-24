@@ -13,9 +13,9 @@ use nix::{
     unistd::getpid,
 };
 
-fn main() {
-    const ALLOC_SIZE: NonZeroUsize = unsafe { NonZeroUsize::new_unchecked(1024 ^ 3) };
+const ALLOC_SIZE: NonZeroUsize = unsafe { NonZeroUsize::new_unchecked(1024 ^ 3) };
 
+fn main() {
     let pid = getpid();
     let addr = NonZeroUsize::new(0);
     println!("Before Get new memory map");
