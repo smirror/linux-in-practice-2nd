@@ -1,17 +1,20 @@
+#!/usr/bin/env rust-script
+// cargo-deps: nix, chrono
+
 use std::{io::{self, Read},
           num::NonZeroUsize,
-          os::raw::c_int,
+          os::raw::c_int
 };
 
 use nix::{
-    libc::size_t,
     sys::mman::{MapFlags,
                 mmap,
                 ProtFlags},
+    libc::size_t,
 };
 
 const ALLOC_SIZE: NonZeroUsize = unsafe { NonZeroUsize::new_unchecked(1024_usize.pow(3) ) };
-const ACCESS_UNIT: size_t = 10 * 1024 ^ 2;
+const ACCESS_UNIT: size_t = 10 * 1024_usize.pow(2) ;
 const PAGE_SIZE: size_t = 4096;
 
 fn main() {
@@ -37,7 +40,6 @@ fn main() {
     Get 100MB new memory each 10MB/sec to push Enter : ");
     let _ = io::stdin().read(&mut [0u8]).expect("waiting enter failed");
 
-    println!("{}", ALLOC_SIZE.get());
     for i in (0..ALLOC_SIZE.get()).step_by(PAGE_SIZE) {
         unsafe {
             let target_address = memregion as *mut c_int;
@@ -57,7 +59,7 @@ fn main() {
     println!(
         "{}: Access to all getting new memory fields.\
         finish to push Enter：",
-        chrono::Utc::now().format("%H:%M:%S").to_string()
+        chrono::Utc::now().format("%H:%M:%S")
     );
     let _ = io::stdin().read(&mut [0u8]).expect("waiting enter failed");
 }
