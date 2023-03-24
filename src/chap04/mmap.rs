@@ -19,8 +19,7 @@ fn main() {
     let pid = getpid();
     let addr = NonZeroUsize::new(0);
     println!("Before Get new memory map");
-    let command = Command::new("cat").arg(format!("/proc/{}/maps", pid)).
-        output().unwrap();
+    let command = Command::new("cat").arg(format!("/proc/{}/maps", pid)).output().unwrap();
     io::stdout().write_all(&command.stdout).expect("write stdout failed");
 
     // get !GB memory by mmap()
