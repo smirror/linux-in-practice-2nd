@@ -7,3 +7,5 @@
 ## 参考
 - [(love cat)さんのメモ1](https://zenn.dev/elvis/scraps/9ddd9a012c1621)
 - [(love cat)さんのメモ2](https://zenn.dev/elvis/scraps/3a022eafa4cb8b)
+- [ nix によるシステムプログラミング ](https://blog-dry.com/entry/2017/12/23/114449)
+  - [Rustのnixクレートのforkがunsafeになっていた件](https://zenn.dev/helloyuki/scraps/86384c534e63ac)
