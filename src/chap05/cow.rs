@@ -31,15 +31,15 @@ fn access(mut data: *mut c_void) {
 fn show_meminfo(msg: &str, process: &str) {
     println!("{}", msg);
     println!("freeコマンドの実行結果：");
-    let commmand = std::process::Command::new("free")
+    let command = std::process::Command::new("free")
         .output()
         .expect("free failed");
     std::io::stdout()
-        .write_all(&commmand.stdout)
+        .write_all(&command.stdout)
         .expect("write failed");
     println!("{}のメモリ関連情報：", process);
     let command = std::process::Command::new("ps")
-        .arg("-orss,maj_flt,min_flt")
+        .arg("-ors,maj_flt,min_flt")
         .arg(getpid().to_string())
         .output()
         .expect("ps failed");
