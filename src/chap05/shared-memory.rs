@@ -1,6 +1,7 @@
 #!/usr/bin/env rust-script
 // cargo-deps: nix
 
+// WIP: not shared parent process
 use nix::{
     sys::wait::wait,
     unistd::{fork, ForkResult},
