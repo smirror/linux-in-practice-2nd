@@ -27,7 +27,7 @@ fn main() {
             addr,
             PAGE_SIZE,
             ProtFlags::PROT_READ | ProtFlags::PROT_WRITE,
-            MapFlags::MAP_ANON | MapFlags::MAP_PRIVATE,
+            MapFlags::MAP_SHARED | MapFlags::MAP_ANON,
             -1,
             0,
         )
