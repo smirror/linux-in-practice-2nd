@@ -22,7 +22,7 @@ fn main() {
     let command = Command::new("cat").arg(format!("/proc/{}/maps", pid)).output().unwrap();
     io::stdout().write_all(&command.stdout).expect("write stdout failed");
 
-    // get !GB memory by mmap()
+    // get 1GB memory by mmap()
     let data = unsafe {
         mmap(
             // アドレス、通常は0を指定
