@@ -60,6 +60,6 @@ fn main() {
         i += 0.25;
     }
 
-    Command::new("./plot-cache.py");
+    let _ = Command::new("./plot-cache.py").output();
 
 }
