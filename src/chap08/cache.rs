@@ -4,16 +4,23 @@
 use nix::sys::mman::{mmap,
                      MapFlags,
                      ProtFlags};
-use std::{fs::OpenOptions,
-          io::Write,
-          os::raw::c_void,
-          num::NonZeroUsize,
-          time};
+
+use std::{
+    fs::{
+        OpenOptions,
+        remove_file,
+    },
+    io::Write,
+    os::raw::c_void,
+    num::NonZeroUsize,
+    time,
+    process::Command};
 
 const CACHE_LINE_SIZE: usize = 64;
 const NACCESS: usize = 128 * 1024 * 1024;
 
 fn main() {
+    let _ = remove_file("out.txt");
     let addr = NonZeroUsize::new(0);
     let mut file = OpenOptions::new()
         .create(true)
@@ -29,7 +36,7 @@ fn main() {
                 addr,
                 bufsize,
                 ProtFlags::PROT_READ | ProtFlags::PROT_WRITE,
-                MapFlags::MAP_SHARED | MapFlags::MAP_ANON,
+                MapFlags::MAP_PRIVATE | MapFlags::MAP_ANON,
                 -1,
                 0)
         }.unwrap();
@@ -49,7 +56,10 @@ fn main() {
         }
         let end = time::Instant::now().duration_since(start).as_nanos();
         println!("{: <5}\t{}", i, (NACCESS as f64 / end as f64));
-        writeln!(&mut file, "{: <5}\t{}", i, (NACCESS as f64 / end as f64)).unwrap();
+        writeln!(&mut file, "{:}\t{}", i, (NACCESS as f64 / end as f64)).unwrap();
         i += 0.25;
     }
+
+    Command::new("./plot-cache.py");
+
 }
